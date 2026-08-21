@@ -6,6 +6,26 @@
 const WA_NUMBER = '529211533939';
 // ────────────────────────────────────────────────────────────────
 
+// Función global para seleccionar un desarrollo desde el mapa o tarjeta y hacer scroll al formulario
+window.selectDevelopment = function (devName) {
+  const devSelect = document.getElementById('cDevelopment');
+  if (devSelect) {
+    for (let i = 0; i < devSelect.options.length; i++) {
+      if (devSelect.options[i].text.includes(devName) || devSelect.options[i].value.toLowerCase() === devName.toLowerCase()) {
+        devSelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
+  const contactSection = document.getElementById('contacto') || document.querySelector('.contact');
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      document.getElementById('cName')?.focus();
+    }, 400);
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Año dinámico en footer ── */
@@ -13,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ── Toast helper ── */
-  const toast    = document.getElementById('toast');
+  const toast = document.getElementById('toast');
   const toastMsg = document.getElementById('toastMsg');
   let toastTimer = null;
 
@@ -34,10 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       // Leer campos
-      const name    = document.getElementById('cName')?.value.trim()    || '';
-      const phone   = document.getElementById('cPhone')?.value.trim()   || '';
-      const service = document.getElementById('cService')?.value        || '';
-      const msg     = document.getElementById('cMsg')?.value.trim()     || '';
+      const name = document.getElementById('cName')?.value.trim() || '';
+      const phone = document.getElementById('cPhone')?.value.trim() || '';
+      const service = document.getElementById('cService')?.value || '';
+      const development = document.getElementById('cDevelopment')?.value || '';
+      const msg = document.getElementById('cMsg')?.value.trim() || '';
 
       // ── Validación ──
       if (!name) {
@@ -53,25 +74,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // ── Mapear servicio a texto legible ──
       const serviceLabels = {
-        compra:           'Comprar una propiedad',
-        venta:            'Vender mi propiedad',
-        fraccionamiento:  'Fraccionamientos / Lotes',
-        otro:             'Otro',
-        '':               'No especificado',
+        compra: 'Comprar una propiedad',
+        venta: 'Vender mi propiedad',
+        fraccionamiento: 'Fraccionamientos / Lotes',
+        otro: 'Otro',
+        '': 'No especificado',
       };
       const serviceText = serviceLabels[service] ?? service;
 
       // ── Armar el mensaje de WhatsApp ──
-      const waText = [
-        `Hola, me contacté desde el sitio web.`,
+      const waLines = [
+        `Hola, me contacté desde el sitio web de Corporativo Diamante.`,
         ``,
         `*Nombre:* ${name}`,
         `*Teléfono:* ${phone}`,
-        `*Servicio de interés:* ${serviceText}`,
-        msg ? `*Mensaje:* ${msg}` : null,
-      ]
-        .filter(line => line !== null)
-        .join('\n');
+      ];
+
+      if (development) {
+        waLines.push(`*Desarrollo de interés:* ${development}`);
+      } else if (service) {
+        waLines.push(`*Servicio de interés:* ${serviceText}`);
+      }
+
+      if (msg) {
+        waLines.push(`*Mensaje:* ${msg}`);
+      }
+
+      const waText = waLines.join('\n');
 
       // ── Abrir WhatsApp ──
       const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waText)}`;
@@ -84,6 +113,45 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(waUrl, '_blank', 'noopener,noreferrer');
         form.reset();
       }, 800);
+    });
+  }
+
+  /* ── Inicializar Mapa Interactivo con Leaflet si existe #map ── */
+  const mapEl = document.getElementById('map');
+  if (mapEl && typeof L !== 'undefined') {
+    // Coordenadas iniciales (vista general de México centrada hacia Veracruz / Golfo)
+    const map = L.map('map').setView([19.5, -95.5], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const developments = [
+      {
+        name: 'La jolla residencial',
+        location: 'Coatzacoalcos, Ver.',
+        lat: 18.144362,
+        lng: -94.537650,
+        type: 'Lotes Residenciales',
+        img: 'assets/jolla.jpg',
+      }
+    ];
+
+    developments.forEach(dev => {
+      const marker = L.marker([dev.lat, dev.lng]).addTo(map);
+      const popupHtml = `
+        <div class="map-popup-card">
+          <img src="${dev.img}" alt="${dev.name}" class="map-popup-img">
+          <div class="map-popup-body">
+            <span class="map-popup-type">${dev.type}</span>
+            <div class="map-popup-title">${dev.name}</div>
+            <div class="map-popup-loc">📍 ${dev.location}</div>
+            <button class="map-popup-btn" onclick="selectDevelopment('${dev.name}')">Solicitar información</button>
+          </div>
+        </div>
+      `;
+      marker.bindPopup(popupHtml);
     });
   }
 
@@ -100,3 +168,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+

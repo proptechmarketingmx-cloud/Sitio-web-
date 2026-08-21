@@ -137,21 +137,21 @@ ul {
   justify-content: center;
 }
 
-.logo-placeholder {
-  display: flex;
-  align-items: center;
-  gap: .625rem;
-  color: white;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 3.125rem;
-  letter-spacing: .04em;
-  background: rgba(255, 255, 255, .12);
-  border: 1px solid rgba(255, 255, 255, .25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: .625rem 1.25rem;
-  border-radius: var(--r-xl);
+.hero-logo-img {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  background: var(--white);
+  padding: 1.25rem 1.75rem;
+  border-radius: 50%;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+
+.hero-logo-img:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
 }
 
 /* Texto hero */
@@ -700,6 +700,7 @@ a.contact-value:hover {
 .toast.toast--error {
   background: #b91c1c;
 }
+
 .toast.toast--error svg {
   color: #fca5a5;
 }
@@ -773,5 +774,430 @@ a.contact-value:hover {
 
   .contact-form-col {
     padding: 1.5rem 1.125rem;
+  }
+}
+
+/* ============================================================
+   PÁGINA FRACCIONAMIENTOS / NAVBAR & COMPONENTES
+   ============================================================ */
+
+/* Navbar superior */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15, 37, 64, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: .875rem 1.25rem;
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-img {
+  height: 70px;
+  width: auto;
+  background: var(--white);
+  padding: .35rem .75rem;
+  border-radius: 70%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: transform .2s var(--ease);
+}
+
+.nav-logo-img:hover {
+  transform: scale(1.03);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: .9375rem;
+  font-weight: 500;
+  transition: color .2s var(--ease);
+}
+
+.nav-link:hover {
+  color: var(--accent-light);
+}
+
+.nav-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(255, 255, 255, .12);
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, .25);
+  padding: .5rem 1rem;
+  border-radius: 99px;
+  font-size: .875rem;
+  font-weight: 600;
+  transition: all .2s var(--ease);
+}
+
+.nav-back-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+
+/* Header de la página Fraccionamientos */
+.page-header {
+  background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
+  color: var(--white);
+  padding: 4rem 1.25rem 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(201, 137, 58, 0.15), transparent 60%);
+  pointer-events: none;
+}
+
+.page-header-content {
+  max-width: 750px;
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header-tag {
+  display: inline-block;
+  font-size: .8125rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  background: rgba(201, 137, 58, 0.15);
+  border: 1px solid rgba(226, 168, 92, 0.3);
+  padding: .35rem .875rem;
+  border-radius: 99px;
+  margin-bottom: 1rem;
+}
+
+.page-header-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.page-header-sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+}
+
+/* Sección del Mapa Interactivo */
+.map-section {
+  padding: 3.5rem 1.25rem;
+  background: var(--off-white);
+  border-bottom: 1px solid var(--border);
+}
+
+.map-header {
+  max-width: 700px;
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.map-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  color: var(--brand-dark);
+  margin-bottom: .5rem;
+}
+
+.map-sub {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.map-container-wrap {
+  max-width: 1180px;
+  margin-inline: auto;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-md);
+  border: 1px solid var(--border);
+  background: var(--white);
+}
+
+#map {
+  width: 100%;
+  height: 480px;
+  z-index: 1;
+}
+
+/* Custom Leaflet Popups */
+.leaflet-popup-content-wrapper {
+  border-radius: var(--r-md) !important;
+  padding: 0 !important;
+  overflow: hidden;
+  box-shadow: var(--sh-lg) !important;
+  font-family: var(--font-sans) !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+  width: 260px !important;
+}
+
+.map-popup-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-popup-img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+}
+
+.map-popup-body {
+  padding: 1rem;
+}
+
+.map-popup-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+  margin-bottom: .25rem;
+}
+
+.map-popup-loc {
+  font-size: .8125rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  margin-bottom: .5rem;
+}
+
+.map-popup-type {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(201, 137, 58, .12);
+  padding: .2rem .5rem;
+  border-radius: 4px;
+  margin-bottom: .75rem;
+}
+
+.map-popup-btn {
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: .5rem;
+  background: var(--brand);
+  color: var(--white) !important;
+  font-size: .8125rem;
+  font-weight: 700;
+  border-radius: var(--r-sm);
+  transition: background .2s var(--ease);
+}
+
+.map-popup-btn:hover {
+  background: var(--brand-light);
+}
+
+/* Catálogo de Desarrollos (Grid & Cards) */
+.catalog-section {
+  padding: 5rem 1.25rem;
+  background: var(--white);
+}
+
+.dev-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .dev-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dev-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.dev-card {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+
+.dev-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sh-lg);
+}
+
+.dev-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #e5e5e0;
+}
+
+.dev-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s var(--ease);
+}
+
+.dev-card:hover .dev-img {
+  transform: scale(1.05);
+}
+
+.dev-badge-type {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(15, 37, 64, 0.88);
+  backdrop-filter: blur(6px);
+  color: var(--white);
+  font-size: .75rem;
+  font-weight: 700;
+  padding: .35rem .75rem;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.dev-badge-status {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #00C853;
+  color: var(--white);
+  font-size: .75rem;
+  font-weight: 700;
+  padding: .35rem .75rem;
+  border-radius: 99px;
+}
+
+.dev-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: .875rem;
+}
+
+.dev-location {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .8125rem;
+  font-weight: 600;
+  color: var(--brand-light);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.dev-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+  line-height: 1.25;
+}
+
+.dev-desc {
+  font-size: .9375rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.dev-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .25rem;
+}
+
+.dev-tag {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .25rem .6rem;
+  border-radius: var(--r-sm);
+}
+
+.dev-card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: drop-shadow;
+}
+
+.dev-price-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-price-label {
+  font-size: .75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.dev-price-val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+}
+
+@media (max-width: 480px) {
+  .nav-brand span {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    gap: .75rem;
   }
 }
