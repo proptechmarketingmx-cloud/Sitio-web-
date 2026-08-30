@@ -84,8 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // ── Armar el mensaje de WhatsApp ──
       const waLines = [
-        `Hola, me contacté desde el sitio web de Corporativo Diamante.`,
-        ``,
         `*Nombre:* ${name}`,
         `*Teléfono:* ${phone}`,
       ];
@@ -135,8 +133,28 @@ document.addEventListener('DOMContentLoaded', () => {
         lng: -94.537650,
         type: 'Lotes Residenciales',
         img: 'assets/jolla.jpg',
+      },
+
+      {
+        name: 'Rio Sur',
+        location: 'Coatzacoalcos, Ver.',
+        lat: 18.107007042493816,
+        lng: -94.56920007869213,
+        type: 'Lotes Residenciales',
+        img: 'assets/rio sur.jpg',
+      },
+
+      {
+        name: 'Madeiras Residencial',
+        location: 'Coatzacoalcos, Ver.',
+        lat: 18.133320493154372,
+        lng: -94.47969044611061,
+        type: 'Lotes Residenciales',
+        img: 'assets/madeira.jpg',
       }
     ];
+
+
 
     developments.forEach(dev => {
       const marker = L.marker([dev.lat, dev.lng]).addTo(map);
