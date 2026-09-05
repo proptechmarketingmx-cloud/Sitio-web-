@@ -187,3 +187,294 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+// ============================================================
+// BLOQUE 2 — CARRUSEL INFINITO CONTINUO
+// ============================================================
+(function () {
+
+  const track = document.getElementById('servicesTrack');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('carouselDots');
+
+  if (!track || !prevBtn || !nextBtn || !dotsWrap) return;
+
+  const originalCards = Array.from(track.children);
+  const total = originalCards.length;
+
+  let current = 0;
+  let isMoving = false;
+
+
+  // ============================================================
+  // CLONAR SLIDES
+  // ============================================================
+
+  // Clonamos el primero al final
+  const firstClone = originalCards[0].cloneNode(true);
+
+  // Clonamos el último al principio
+  const lastClone = originalCards[total - 1].cloneNode(true);
+
+  firstClone.classList.add('carousel-clone');
+  lastClone.classList.add('carousel-clone');
+
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, track.firstChild);
+
+
+  // Ahora tenemos:
+  //
+  // [4] [1] [2] [3] [4] [1]
+  //  ↑   ↑           ↑   ↑
+  // clone real       real clone
+  //
+
+
+  const cards = Array.from(track.children);
+
+
+  // ============================================================
+  // POSICIÓN INICIAL
+  // ============================================================
+
+  // Empezamos en el primer slide REAL
+  current = 1;
+
+  track.scrollTo({
+    left: current * track.clientWidth,
+    behavior: 'auto'
+  });
+
+
+  // ============================================================
+  // CREAR DOTS
+  // ============================================================
+
+  originalCards.forEach((_, i) => {
+
+    const dot = document.createElement('button');
+
+    dot.className =
+      'carousel-dot' + (i === 0 ? ' active' : '');
+
+    dot.setAttribute(
+      'aria-label',
+      `Ir a servicio ${i + 1}`
+    );
+
+    dot.addEventListener('click', () => {
+      goTo(i + 1);
+    });
+
+    dotsWrap.appendChild(dot);
+
+  });
+
+  const dots = Array.from(dotsWrap.children);
+
+
+  // ============================================================
+  // ACTUALIZAR DOTS
+  // ============================================================
+
+  function updateDots() {
+
+    let realIndex = current - 1;
+
+    if (realIndex < 0) {
+      realIndex = total - 1;
+    }
+
+    if (realIndex >= total) {
+      realIndex = 0;
+    }
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle(
+        'active',
+        i === realIndex
+      );
+    });
+
+  }
+
+
+  // ============================================================
+  // IR AL SLIDE
+  // ============================================================
+
+  function goTo(index) {
+
+    if (isMoving) return;
+
+    isMoving = true;
+    current = index;
+
+    track.scrollTo({
+      left: current * track.clientWidth,
+      behavior: 'smooth'
+    });
+
+    updateDots();
+
+  }
+
+
+  // ============================================================
+  // NEXT
+  // ============================================================
+
+  nextBtn.addEventListener('click', () => {
+
+    goTo(current + 1);
+
+  });
+
+
+  // ============================================================
+  // PREVIOUS
+  // ============================================================
+
+  prevBtn.addEventListener('click', () => {
+
+    goTo(current - 1);
+
+  });
+
+
+  // ============================================================
+  // CUANDO TERMINA LA ANIMACIÓN
+  // ============================================================
+
+  track.addEventListener('scrollend', () => {
+
+    // Llegamos al clon del primero
+    if (current === total + 1) {
+
+      current = 1;
+
+      track.scrollTo({
+        left: current * track.clientWidth,
+        behavior: 'auto'
+      });
+
+    }
+
+
+    // Llegamos al clon del último
+    if (current === 0) {
+
+      current = total;
+
+      track.scrollTo({
+        left: current * track.clientWidth,
+        behavior: 'auto'
+      });
+
+    }
+
+    updateDots();
+
+    isMoving = false;
+
+  });
+
+
+  // ============================================================
+  // FALLBACK PARA NAVEGADORES SIN SCROLLEND
+  // ============================================================
+
+  let scrollTimer;
+
+  track.addEventListener('scroll', () => {
+
+    clearTimeout(scrollTimer);
+
+    scrollTimer = setTimeout(() => {
+
+      if (current === total + 1) {
+
+        current = 1;
+
+        track.scrollTo({
+          left: current * track.clientWidth,
+          behavior: 'auto'
+        });
+
+      }
+
+      if (current === 0) {
+
+        current = total;
+
+        track.scrollTo({
+          left: current * track.clientWidth,
+          behavior: 'auto'
+        });
+
+      }
+
+      updateDots();
+
+      isMoving = false;
+
+    }, 100);
+
+  }, { passive: true });
+
+
+  // ============================================================
+  // SWIPE
+  // ============================================================
+
+  let startX = 0;
+
+  track.addEventListener(
+    'touchstart',
+    e => {
+      startX = e.touches[0].clientX;
+    },
+    { passive: true }
+  );
+
+  track.addEventListener(
+    'touchend',
+    e => {
+
+      const diff =
+        startX - e.changedTouches[0].clientX;
+
+      if (Math.abs(diff) > 40) {
+
+        if (diff > 0) {
+          goTo(current + 1);
+        } else {
+          goTo(current - 1);
+        }
+
+      }
+
+    },
+    { passive: true }
+  );
+
+
+  // ============================================================
+  // RESIZE
+  // ============================================================
+
+  window.addEventListener('resize', () => {
+
+    track.scrollTo({
+      left: current * track.clientWidth,
+      behavior: 'auto'
+    });
+
+  });
+
+
+  updateDots();
+
+})();

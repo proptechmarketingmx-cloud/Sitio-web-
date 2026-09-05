@@ -55,89 +55,116 @@
        BLOQUE 2 — SERVICIOS
   ============================================================ -->
   <section class="services" id="servicios">
-    <div class="services-intro">
-      <h2 class="services-title">¿En qué podemos ayudarte?</h2>
-      <p class="services-sub">Ofrecemos acompañamiento integral en cada etapa de tu proceso inmobiliario.</p>
+
+    <div class="services-carousel">
+      <button class="carousel-btn carousel-btn--prev" id="prevBtn" aria-label="Anterior">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+
+      <div class="services-track" id="servicesTrack">
+
+        <!-- Tarjeta 1: Compra -->
+        <article class="service-card service-card--compra">
+          <div class="service-card-bg">
+            <img src="assets/prop_villa.jpg" alt="Compra de propiedades residenciales" class="service-card-img">
+            <div class="service-card-overlay"></div>
+          </div>
+          <div class="card-icon icon-buy">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+              <line x1="12" y1="6" x2="12" y2="10" />
+              <line x1="10" y1="8" x2="14" y2="8" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Compra</h3>
+            <p class="card-desc">Te acompañamos en cada paso para encontrar y adquirir la propiedad que se adapta a tu
+              presupuesto, estilo de vida y necesidades familiares.</p>
+          </div>
+          <a href="#contacto" class="card-btn">Me interesa más información</a>
+        </article>
+
+        <!-- Tarjeta 2: Venta -->
+        <article class="service-card service-card--venta">
+          <div class="service-card-bg">
+            <img src="assets/prop_penthouse.jpg" alt="Venta de casas y departamentos" class="service-card-img">
+            <div class="service-card-overlay"></div>
+          </div>
+          <div class="card-icon icon-sell">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <line x1="8" y1="13" x2="16" y2="13" />
+              <polyline points="12 8 16 12 12 16" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Venta</h3>
+            <p class="card-desc">Te acompañamos en todo el proceso de venta de tu propiedad con el asesoramiento y los
+              trámites necesarios para que la venta se realice de manera segura y eficiente.</p>
+          </div>
+          <a href="#contacto" class="card-btn">Solicita un asesor</a>
+        </article>
+
+        <!-- Tarjeta 3: Venta a terceros -->
+        <article class="service-card service-card--terceros">
+          <div class="service-card-bg">
+            <img src="assets/prop_apartment.jpg" alt="Asesoría e inversión inmobiliaria a terceros" class="service-card-img">
+            <div class="service-card-overlay"></div>
+          </div>
+          <div class="card-icon icon-sell">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <line x1="8" y1="13" x2="16" y2="13" />
+              <polyline points="12 8 16 12 12 16" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Venta a terceros</h3>
+            <p class="card-desc">¿Buscas invertir en bienes raíces pero no tienes tiempo para buscar? Nosotros te
+              asesoramos y encargamos de todo el proceso de trámites legales y gestión hasta la entrega.</p>
+          </div>
+          <a href="#contacto" class="card-btn">Solicita un asesor</a>
+        </article>
+
+        <!-- Tarjeta 4: Fraccionamientos -->
+        <article class="service-card service-card--fraccionamientos">
+          <div class="service-card-bg">
+            <img src="assets/fraccionamiento.jpg" alt="Terrenos y desarrollos en fraccionamientos privados" class="service-card-img">
+            <div class="service-card-overlay"></div>
+          </div>
+          <div class="card-icon icon-frac">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="9" height="9" />
+              <rect x="13" y="2" width="9" height="9" />
+              <rect x="2" y="13" width="9" height="9" />
+              <rect x="13" y="13" width="9" height="9" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Fraccionamientos</h3>
+            <p class="card-desc">Venta de propiedades y terrenos en fraccionamientos privados con todos
+              los servicios.</p>
+          </div>
+          <a href="fraccionamientos.html" class="card-btn">Ver desarrollos</a>
+        </article>
+
+      </div>
+
+      <button class="carousel-btn carousel-btn--next" id="nextBtn" aria-label="Siguiente">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
     </div>
 
-    <div class="services-grid">
-
-      <!-- Tarjeta 1: Compra -->
-      <article class="service-card">
-        <div class="card-icon icon-buy">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" />
-            <line x1="12" y1="6" x2="12" y2="10" />
-            <line x1="10" y1="8" x2="14" y2="8" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Compra</h3>
-          <p class="card-desc">Te acompañamos en cada paso para encontrar y adquirir la propiedad que se adapta a tu
-            presupuesto, estilo de vida y necesidades familiares.</p>
-        </div>
-        <a href="#contacto" class="card-btn">Me interesa mas información</a>
-      </article>
-
-      <!-- Tarjeta 2: Venta -->
-      <article class="service-card service-card--accent">
-        <div class="card-icon icon-sell">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <line x1="8" y1="13" x2="16" y2="13" />
-            <polyline points="12 8 16 12 12 16" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Venta</h3>
-          <p class="card-desc">Te acompañamos en todo el proceso de venta de tu propiedad con el asesoramiento y los
-            trámites necesarios para que la venta se realice de manera segura y eficiente.</p>
-        </div>
-        <a href="#contacto" class="card-btn card-btn--light">Solicita un asesor</a>
-      </article>
-
-      <!-- Tarjeta 3: Venta a terceros -->
-      <article class="service-card service-card--accent">
-        <div class="card-icon icon-sell">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <line x1="8" y1="13" x2="16" y2="13" />
-            <polyline points="12 8 16 12 12 16" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Venta a terceros</h3>
-          <p class="card-desc">¿Buscas invertir en bienes raíces pero no tienes tiempo para buscar? Nosotros te
-            asesoramos y encargamos de todo el proceso de trámites legales y gestión hasta la entrega.</p>
-        </div>
-        <a href="#contacto" class="card-btn card-btn--light">Solicita un asesor</a>
-      </article>
-
-
-      <!-- Tarjeta 3: Fraccionamientos -->
-      <article class="service-card">
-        <div class="card-icon icon-frac">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="9" height="9" />
-            <rect x="13" y="2" width="9" height="9" />
-            <rect x="2" y="13" width="9" height="9" />
-            <rect x="13" y="13" width="9" height="9" />
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Fraccionamientos</h3>
-          <p class="card-desc">Venta de propiedades y terrenos en fraccionamientos privados con todos
-            los servicios.</p>
-        </div>
-        <a href="fraccionamientos.html" class="card-btn">Ver desarrollos</a>
-      </article>
-
-    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
   </section>
 
 
