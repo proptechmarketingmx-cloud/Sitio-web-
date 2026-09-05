@@ -478,3 +478,63 @@ document.addEventListener('DOMContentLoaded', () => {
   updateDots();
 
 })();
+
+
+// ============================================================
+// WEBMCP (navigator.modelContext) — Agentes de IA
+// ============================================================
+if ('modelContext' in navigator) {
+
+  navigator.modelContext.registerTool({
+    name: 'enviarSolicitudContacto',
+    description: 'Envía una solicitud de contacto de un cliente interesado en comprar, vender o invertir en una propiedad.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        nombre: { type: 'string' },
+        telefono: { type: 'string' },
+        servicio: { type: 'string', enum: ['compra', 'venta', 'fraccionamiento', 'venta-terceros', 'otro'] },
+        mensaje: { type: 'string' }
+      },
+      required: ['nombre', 'telefono']
+    },
+    execute: async (input) => {
+      const nameEl = document.getElementById('cName');
+      const phoneEl = document.getElementById('cPhone');
+      const serviceEl = document.getElementById('cService') || document.getElementById('cDevelopment');
+      const msgEl = document.getElementById('cMsg');
+      const formEl = document.getElementById('contactForm');
+
+      if (nameEl && input.nombre) nameEl.value = input.nombre;
+      if (phoneEl && input.telefono) phoneEl.value = input.telefono;
+      if (serviceEl && input.servicio) serviceEl.value = input.servicio;
+      if (msgEl && input.mensaje) msgEl.value = input.mensaje;
+      if (formEl) formEl.requestSubmit();
+      return { status: 'ok', mensaje: 'Solicitud enviada por WhatsApp' };
+    }
+  });
+
+  navigator.modelContext.registerTool({
+    name: 'listarDesarrollos',
+    description: 'Lista los fraccionamientos/desarrollos disponibles con precio y ubicación.',
+    inputSchema: { type: 'object', properties: {} },
+    readOnlyHint: true,
+    execute: async () => ([
+      { nombre: 'La Jolla Residencial', precioDesde: 2500000, moneda: 'MXN', ubicacion: 'Coatzacoalcos, Ver.' },
+      { nombre: 'Madeiras Residencial', precioDesde: 2000000, moneda: 'MXN', ubicacion: 'Coatzacoalcos, Ver.' },
+      { nombre: 'Rio Sur', precioDesde: 2000000, moneda: 'MXN', ubicacion: 'Coatzacoalcos, Ver.' }
+    ])
+  });
+
+  navigator.modelContext.registerTool({
+    name: 'seleccionarDesarrollo',
+    description: 'Preselecciona un desarrollo en el formulario y hace scroll a contacto.',
+    inputSchema: { type: 'object', properties: { nombre: { type: 'string' } }, required: ['nombre'] },
+    execute: async (input) => {
+      if (typeof window.selectDevelopment === 'function') {
+        window.selectDevelopment(input.nombre);
+      }
+      return { status: 'ok' };
+    }
+  });
+}

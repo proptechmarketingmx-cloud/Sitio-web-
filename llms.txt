@@ -1,0 +1,32 @@
+# Corporativo Diamante
+
+> Inmobiliaria en Coatzacoalcos, Veracruz (México) especializada en compra, venta, venta a terceros y fraccionamientos/desarrollos residenciales privados. Este archivo ayuda a asistentes de IA y LLMs a entender rápidamente el contenido y propósito del sitio para responder preguntas o remitir usuarios a la sección correcta.
+
+Corporativo Diamante ofrece asesoría inmobiliaria profesional: compra y venta de casas/departamentos, gestión de venta a terceros (inversión) y venta de lotes en fraccionamientos privados con servicios (calles pavimentadas, acceso controlado, áreas verdes, barda perimetral) ubicados en Coatzacoalcos, Veracruz. El contacto principal es por WhatsApp, correo o el formulario web; no hay portal de búsqueda de propiedades ni precios en línea salvo los desarrollos listados.
+
+## Páginas principales
+(Reemplaza "https://TUDOMINIO.com" por el dominio real donde se publique el sitio)
+- [Inicio](https://TUDOMINIO.com/index.html): Landing principal. Hero, carrusel de servicios (Compra, Venta, Venta a terceros, Fraccionamientos) y formulario/datos de contacto.
+- [Fraccionamientos y Desarrollos](https://TUDOMINIO.com/fraccionamientos.html): Mapa interactivo y catálogo de los desarrollos en venta, con formulario de interés específico por desarrollo.
+
+## Servicios
+- Compra: acompañamiento para adquirir casa o departamento según presupuesto y necesidades familiares.
+- Venta: gestión y trámites para vender una propiedad de forma segura.
+- Venta a terceros: asesoría e inversión inmobiliaria gestionada de principio a fin para inversionistas.
+- Fraccionamientos: venta de lotes/terrenos en desarrollos privados con servicios.
+
+## Desarrollos en venta (Coatzacoalcos, Ver.)
+- La Jolla Residencial: fraccionamiento privado, acceso controlado, áreas verdes. Desde $2,500,000 MXN.
+- Madeiras Residencial: fraccionamiento privado, acceso controlado, áreas verdes. Desde $2,000,000 MXN.
+- Rio Sur: fraccionamiento privado, acceso controlado, áreas verdes. Desde $2,000,000 MXN.
+
+## Contacto
+- WhatsApp: +52 921 153 3939
+- Correo: corporativo.diamante2@gmail.com
+- Ubicación: Coatzacoalcos, Veracruz, México
+- Redes: Facebook, Instagram (@corporativo_diamante)
+
+## Notas para agentes/LLMs
+- Los precios y disponibilidad de los desarrollos pueden cambiar; confirma siempre con un asesor humano antes de citar cifras exactas a un usuario.
+- No existe checkout ni pago en línea; toda solicitud de información se canaliza por WhatsApp o el formulario de contacto.
+- No reproducir datos personales de terceros ni inventar propiedades/desarrollos que no aparezcan listados en este archivo o en el sitio.
