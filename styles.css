@@ -192,7 +192,7 @@ ul {
   gap: .5rem;
   margin-top: .5rem;
   background: var(--accent);
-  color: #0f2540;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   padding: .875rem 2rem;
@@ -1305,61 +1305,55 @@ a.contact-value:hover {
 .service-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(8, 18, 33, 0.68) 0%,
-    rgba(8, 18, 33, 0.45) 45%,
-    rgba(8, 18, 33, 0.84) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(8, 18, 33, 0.68) 0%,
+      rgba(8, 18, 33, 0.45) 45%,
+      rgba(8, 18, 33, 0.84) 100%);
 }
 
 /* Tonos y filtros únicos para cada servicio */
 .service-card--compra {
   --card-theme: #01ddfd;
 }
+
 .service-card--compra .service-card-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(1, 35, 60, 0.72) 0%,
-    rgba(5, 22, 38, 0.42) 50%,
-    rgba(1, 22, 42, 0.86) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(1, 35, 60, 0.72) 0%,
+      rgba(5, 22, 38, 0.42) 50%,
+      rgba(1, 22, 42, 0.86) 100%);
 }
 
 .service-card--venta {
   --card-theme: #264d9c;
 }
+
 .service-card--venta .service-card-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(15, 30, 75, 0.72) 0%,
-    rgba(10, 20, 48, 0.42) 50%,
-    rgba(8, 18, 52, 0.86) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(15, 30, 75, 0.72) 0%,
+      rgba(10, 20, 48, 0.42) 50%,
+      rgba(8, 18, 52, 0.86) 100%);
 }
 
 .service-card--terceros {
   --card-theme: #10213f;
 }
+
 .service-card--terceros .service-card-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(10, 22, 45, 0.74) 0%,
-    rgba(8, 18, 35, 0.44) 50%,
-    rgba(5, 12, 30, 0.88) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(10, 22, 45, 0.74) 0%,
+      rgba(8, 18, 35, 0.44) 50%,
+      rgba(5, 12, 30, 0.88) 100%);
 }
 
 .service-card--fraccionamientos {
   --card-theme: #101115;
 }
+
 .service-card--fraccionamientos .service-card-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(10, 28, 22, 0.72) 0%,
-    rgba(8, 20, 16, 0.42) 50%,
-    rgba(5, 15, 12, 0.88) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(10, 28, 22, 0.72) 0%,
+      rgba(8, 20, 16, 0.42) 50%,
+      rgba(5, 15, 12, 0.88) 100%);
 }
 
 

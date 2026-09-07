@@ -9,8 +9,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" type="assets/logo.png" sizes="100x100" href="assets/logo.png">
-  <link rel="icon" type="assets/logo.png" sizes="16x16" href="assets/logo.png">
+  <link rel="icon" type="image/png" sizes="100x100" href="assets/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png">
   <link rel="apple-touch-icon" href="assets/logo.png">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap"
@@ -42,11 +42,7 @@
           <img src="assets/logo.png" alt="Corporativo Diamante - Bienes Raíces" class="hero-logo-img">
         </div>
 
-        <!-- Título + Eslogan -->
         <div class="hero-content">
-          <p class="hero-eyebrow">Bienes Raíces en Coatzacoalcos</p>
-          <h1 class="hero-title">Corporativo Diamante</h1>
-          <p class="hero-slogan">Compra, venta y fraccionamientos residenciales privados con asesoría profesional.</p>
           <a href="#servicios" class="hero-cta">
             Ver servicios
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -264,6 +260,11 @@
         <div class="contact-form-col">
 
           <form class="contact-form conversational-form" id="contactForm">
+
+            <!-- Campo Honeypot (Anti-spam para bots) -->
+            <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+              <input type="text" name="_honeypot" id="_honeypot" tabindex="-1" autocomplete="off">
+            </div>
 
             <!-- PROGRESO -->
             <div class="form-progress" id="formProgress">
@@ -1418,6 +1419,15 @@
                ENVIAR A GOOGLE SHEETS
             ========================================================== */
 
+            function showSuccess() {
+              document.getElementById("formProgress").style.display = "none";
+              steps.forEach(function (step) {
+                step.style.display = "none";
+              });
+              successMessage.classList.add("active");
+              form.reset();
+            }
+
             form.addEventListener("submit", function (event) {
 
               event.preventDefault();
@@ -1426,8 +1436,26 @@
                 return;
               }
 
-              errorMessage.classList.remove("active");
+              // 1. Verificación Honeypot (trampa de bots)
+              const honeypotVal = document.getElementById("_honeypot")
+                ? document.getElementById("_honeypot").value.trim()
+                : "";
 
+              if (honeypotVal !== "") {
+                // Silenciosamente fingimos éxito para no alertar al bot
+                showSuccess();
+                return;
+              }
+
+              // 2. Cooldown básico (ej. 30s) para evitar doble-clic
+              const lastSubmit = sessionStorage.getItem("lastContactSubmit");
+              const now = Date.now();
+              if (lastSubmit && now - Number(lastSubmit) < 30000) {
+                alert("Ya hemos recibido tu solicitud. Por favor espera un momento antes de volver a enviar.");
+                return;
+              }
+
+              errorMessage.classList.remove("active");
               submitButton.disabled = true;
               submitButton.innerHTML = "Enviando...";
 
@@ -1460,19 +1488,8 @@
                   ? servicioElement.value
                   : "";
 
-              /*
-               * Crear formulario oculto para Google Apps Script
-               */
-
-              const hiddenForm =
-                document.createElement("form");
-
-              hiddenForm.method = "POST";
-              hiddenForm.action = GOOGLE_SCRIPT_URL;
-              hiddenForm.target = "googleSheetsFrame";
-              hiddenForm.style.display = "none";
-
-              const data = {
+              const payload = {
+                _honeypot: honeypotVal,
                 nombre: nombre,
                 telefono: telefono,
                 presupuesto: presupuesto,
@@ -1480,67 +1497,29 @@
                 servicio: servicio
               };
 
-              Object.keys(data).forEach(function (key) {
-
-                const input =
-                  document.createElement("input");
-
-                input.type = "hidden";
-                input.name = key;
-                input.value = data[key];
-
-                hiddenForm.appendChild(input);
-
-              });
-
               /*
-               * Crear iframe oculto
+               * Envío con fetch() y JSON puro:
+               * Usamos 'text/plain;charset=utf-8' para que el navegador NO dispare
+               * un preflight OPTIONS (el cual Google Apps Script rechaza),
+               * permitiendo que Apps Script reciba e.postData.contents directamente.
                */
-
-              let iframe =
-                document.getElementById("googleSheetsFrame");
-
-              if (!iframe) {
-
-                iframe =
-                  document.createElement("iframe");
-
-                iframe.id = "googleSheetsFrame";
-                iframe.name = "googleSheetsFrame";
-                iframe.style.display = "none";
-
-                document.body.appendChild(iframe);
-
-              }
-
-              document.body.appendChild(hiddenForm);
-
-              /*
-               * Enviar a Google Apps Script
-               */
-
-              hiddenForm.submit();
-
-              /*
-               * Mostrar confirmación
-               */
-
-              setTimeout(function () {
-
-                document.getElementById("formProgress")
-                  .style.display = "none";
-
-                steps.forEach(function (step) {
-                  step.style.display = "none";
+              fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(payload)
+              })
+                .then(function (response) {
+                  sessionStorage.setItem("lastContactSubmit", Date.now().toString());
+                  showSuccess();
+                })
+                .catch(function (error) {
+                  console.error("Error al enviar formulario:", error);
+                  errorMessage.classList.add("active");
+                  submitButton.disabled = false;
+                  submitButton.innerHTML = 'Enviar solicitud <span>→</span>';
                 });
-
-                successMessage.classList.add("active");
-
-                form.reset();
-
-                hiddenForm.remove();
-
-              }, 1000);
 
             });
 
