@@ -1418,161 +1418,129 @@
                ENVIAR A GOOGLE SHEETS
             ========================================================== */
 
-            form.addEventListener("submit", async function (event) {
+            form.addEventListener("submit", function (event) {
 
               event.preventDefault();
 
-
               if (!validateStep(currentStep)) {
-
                 return;
-
               }
-
-
-              /*
-               * Ocultar error anterior
-               */
 
               errorMessage.classList.remove("active");
 
-
-              /*
-               * Evitar doble envío
-               */
-
               submitButton.disabled = true;
-
-              submitButton.innerHTML =
-                "Enviando...";
-
-
-              /*
-               * Obtener valores
-               */
+              submitButton.innerHTML = "Enviando...";
 
               const nombre =
                 document.getElementById("cName").value.trim();
 
-
               const telefono =
                 document.getElementById("cPhone").value.trim();
 
-
               const presupuesto =
                 document.getElementById("cBudget").value;
-
 
               const creditoElement =
                 document.querySelector(
                   'input[name="credito"]:checked'
                 );
 
-
               const servicioElement =
                 document.querySelector(
                   'input[name="servicio"]:checked'
                 );
-
 
               const credito =
                 creditoElement
                   ? creditoElement.value
                   : "";
 
-
               const servicio =
                 servicioElement
                   ? servicioElement.value
                   : "";
 
-
               /*
-               * Datos que enviaremos a Google Apps Script
+               * Crear formulario oculto para Google Apps Script
                */
 
+              const hiddenForm =
+                document.createElement("form");
+
+              hiddenForm.method = "POST";
+              hiddenForm.action = GOOGLE_SCRIPT_URL;
+              hiddenForm.target = "googleSheetsFrame";
+              hiddenForm.style.display = "none";
+
               const data = {
-
                 nombre: nombre,
-
                 telefono: telefono,
-
                 presupuesto: presupuesto,
-
                 credito: credito,
-
                 servicio: servicio
-
               };
 
+              Object.keys(data).forEach(function (key) {
 
-              try {
+                const input =
+                  document.createElement("input");
 
-                /*
-                 * Enviar datos
-                 */
+                input.type = "hidden";
+                input.name = key;
+                input.value = data[key];
 
-                await fetch(
-                  GOOGLE_SCRIPT_URL,
-                  {
+                hiddenForm.appendChild(input);
 
-                    method: "POST",
+              });
 
-                    mode: "no-cors",
+              /*
+               * Crear iframe oculto
+               */
 
-                    headers: {
-                      "Content-Type":
-                        "text/plain;charset=utf-8"
-                    },
+              let iframe =
+                document.getElementById("googleSheetsFrame");
 
-                    body: JSON.stringify(data)
+              if (!iframe) {
 
-                  }
-                );
+                iframe =
+                  document.createElement("iframe");
 
+                iframe.id = "googleSheetsFrame";
+                iframe.name = "googleSheetsFrame";
+                iframe.style.display = "none";
 
-                /*
-                 * Mostrar pantalla final
-                 */
+                document.body.appendChild(iframe);
+
+              }
+
+              document.body.appendChild(hiddenForm);
+
+              /*
+               * Enviar a Google Apps Script
+               */
+
+              hiddenForm.submit();
+
+              /*
+               * Mostrar confirmación
+               */
+
+              setTimeout(function () {
 
                 document.getElementById("formProgress")
                   .style.display = "none";
 
-
                 steps.forEach(function (step) {
-
                   step.style.display = "none";
-
                 });
-
 
                 successMessage.classList.add("active");
 
-
-                /*
-                 * Limpiar formulario
-                 */
-
                 form.reset();
 
+                hiddenForm.remove();
 
-              } catch (error) {
-
-                console.error(
-                  "Error enviando formulario:",
-                  error
-                );
-
-
-                errorMessage.classList.add("active");
-
-
-                submitButton.disabled = false;
-
-                submitButton.innerHTML =
-                  'Enviar solicitud <span>→</span>';
-
-              }
+              }, 1000);
 
             });
 
