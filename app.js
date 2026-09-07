@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Formulario → WhatsApp ── */
   const form = document.getElementById('contactForm');
 
-  if (form) {
+  if (form && !form.classList.contains('conversational-form')) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
