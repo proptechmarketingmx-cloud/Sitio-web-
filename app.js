@@ -509,3 +509,13 @@ if ('modelContext' in navigator) {
     }
   });
 }
+
+/* ── Ofuscación anti-scraping para email ── */
+window.revealEmail = function (el) {
+  const addr = `${el.dataset.user}@${el.dataset.domain}`;
+  el.href = `mailto:${addr}`;
+  el.textContent = addr;
+  el.removeAttribute('onclick');
+  window.location.href = el.href;
+};
+
