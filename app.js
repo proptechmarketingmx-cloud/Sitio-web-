@@ -17,6 +17,14 @@ window.selectDevelopment = function (devName) {
       }
     }
   }
+
+  const radios = document.querySelectorAll('input[name="desarrollo"]');
+  radios.forEach(radio => {
+    if (radio.value.toLowerCase().includes(devName.toLowerCase()) || devName.toLowerCase().includes(radio.value.toLowerCase())) {
+      radio.checked = true;
+    }
+  });
+
   const contactSection = document.getElementById('contacto') || document.querySelector('.contact');
   if (contactSection) {
     contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
